@@ -1,30 +1,62 @@
-# React + TypeScript + Vite
+# Firebase Notification App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a React + TypeScript application.
 
-Currently, two official plugins are available:
+## Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Before running the project, make sure you have the following software installed on your machine:
 
-## Expanding the ESLint configuration
+- Node.js v18: You can use NVM (Node Version Manager) to install Node.js v18.
+  
+- Java Runtime Environment (JRE)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Starting the APPLICATION
 
-- Configure the top-level `parserOptions` property like this:
+1. Install project dependencies by navigating to the project directory in your terminal and running the following command:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json', './tsconfig.app.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+   ```bash
+   npm install
+   ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+2. To update the environemt variable. open .env file and update it accordingly
+
+
+3. Once the installation is complete, you can start the application by running the following command:
+
+   ```bash
+   npm run dev
+   ```
+
+   This command will start the development server and provide you with a local URL where you can access the application in your browser.
+
+### Starting Firebase Emulator
+
+1. Install the firebase CLI. (Below listed step are for intalling through NPM, please refer to the official docs for installing through other methods)
+   ```bash
+   npm install -g firebase-tools
+   ```
+
+2. Login into Firebase using your Google Account:
+   ```bash
+   firebase login
+   ```
+
+3. Start the emulator suite: 
+    ```bash
+    firebase emulators:start
+    ```
+
+
+### Sharing emulator data between teammates
+
+When the firestore database needs to be shared between team members the following process can be used:
+
+1. Export the current emulator database:
+    ```
+    firebase emulators:export ./dir
+    ```
+
+2. Import the baseline data:
+    ```
+    firebase emulators:start --import=./dir
+    ```
