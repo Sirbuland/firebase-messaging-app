@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import {
   arrayUnion,
+  connectFirestoreEmulator,
   doc,
   DocumentData,
   getDoc,
@@ -16,6 +17,7 @@ import { Notification } from "../types/Notification";
 
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
+connectFirestoreEmulator(firestore, "127.0.0.1", 8080);
 
 const userId = getUserId();
 
