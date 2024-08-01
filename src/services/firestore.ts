@@ -17,7 +17,10 @@ import { Notification } from "../types/Notification";
 
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
-connectFirestoreEmulator(firestore, "127.0.0.1", 8080);
+
+if (import.meta.env.MODE === "development") {
+  connectFirestoreEmulator(firestore, "127.0.0.1", 8080);
+}
 
 const userId = getUserId();
 

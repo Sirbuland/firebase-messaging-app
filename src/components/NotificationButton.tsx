@@ -3,15 +3,14 @@ import Button from "@mui/material/Button";
 import { v7 as uuidv7 } from "uuid";
 
 import { addUserNotification } from "../services/firestore";
+import { NotificationType } from "../types/Notification";
 
 type ColorPropOptions = "primary" | "secondary" | "error" | "success";
-
-type TypePropOptions = "event" | "error" | "success";
 
 type NotificationButtonProps = {
   color: ColorPropOptions;
   children: ReactNode;
-  type: TypePropOptions;
+  type: NotificationType;
 };
 
 export default function NotificationButton({
