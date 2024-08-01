@@ -1,25 +1,15 @@
-import { useState } from "react";
 import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0);
+import NotificationButton from "./components/NotificationButton";
 
+function App() {
   return (
     <>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          Button 1 {count}
-        </button>
-        <button onClick={() => setCount((count) => count + 1)}>
-          Button 2 {count}
-        </button>
-        <button onClick={() => setCount((count) => count + 1)}>
-          Button 3 {count}
-        </button>
+        <NotificationButton color="success">Success Notify</NotificationButton>
+        <NotificationButton color="primary">Event Notify</NotificationButton>
+        <NotificationButton color="error">Error Notify</NotificationButton>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   );
 }
