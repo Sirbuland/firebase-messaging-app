@@ -1,26 +1,50 @@
 import Button from "@mui/material/Button";
 import Snackbar from "@mui/material/Snackbar";
-import { SyntheticEvent, useState } from "react";
+import { SyntheticEvent, useEffect, useState } from "react";
+import { markAsRead, subscribeToNotifications } from "../services/firestore";
+import { Notification } from "../types/Notification";
 
 export default function NotificationSnackbar() {
-  const [open, setOpen] = useState(false);
+  const [notifications, setNotifications] = useState<Notification[]>([]);
 
-  const handleClick = () => {
-    setOpen(true);
-  };
+  useEffect(() => {
+    const unsubscribe = subscribeToNotifications((notifications) => {
+      setNotifications(notifications);
+    });
 
-  const handleClose = (event: SyntheticEvent | Event, reason?: string) => {
-    console.log(reason);
+    // Cleanup subscription on unmount
+    return () => unsubscribe();
+  }, []);
+
+  const handleClose = (
+    event: SyntheticEvent | Event,
+    notificationId: string,
+    reason?: string
+  ) => {
     if (reason === "clickaway") {
       return;
     }
 
-    setOpen(false);
+    markAsRead(notificationId);
+
+    const updateIndex = notifications.findIndex(
+      (notification) => notification.id === notificationId
+    );
+
+    if (updateIndex !== -1) {
+      const updatedNotificationsArray = [...notifications];
+      updatedNotificationsArray[updateIndex].read = true;
+      setNotifications(updatedNotificationsArray);
+    }
   };
 
-  const action = (
+  const action = (notificationId: string) => (
     <>
-      <Button color="secondary" size="small" onClick={handleClose}>
+      <Button
+        color="secondary"
+        size="small"
+        onClick={(event) => handleClose(event, notificationId)}
+      >
         Mark as Read
       </Button>
     </>
@@ -28,15 +52,24 @@ export default function NotificationSnackbar() {
 
   return (
     <div>
-      <Button onClick={handleClick}>Open Snackbar</Button>
-      <Snackbar
-        open={open}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message="Note archived"
-        action={action}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-      />
+      {notifications.map((notification) => (
+        <Snackbar
+          key={notification.id}
+          open={!notification.read}
+          autoHideDuration={6000}
+          onClose={(event, reason) =>
+            handleClose(event, notification.id, reason)
+          }
+          message={notification.message}
+          action={action(notification.id)}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          ContentProps={{
+            sx: {
+              backgroundColor: "rgb(28 31 101)",
+            },
+          }}
+        />
+      ))}
     </div>
   );
 }
