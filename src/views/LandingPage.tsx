@@ -6,13 +6,13 @@ function LandingPage() {
     <>
       <h1>Firebase Notifications</h1>
       <div className="card">
-        <NotificationButton color="success">
+        <NotificationButton type="success" color="success">
           Success Notification
         </NotificationButton>
-        <NotificationButton color="primary">
+        <NotificationButton type="event" color="primary">
           Event Notification
         </NotificationButton>
-        <NotificationButton color="error">
+        <NotificationButton type="error" color="error">
           Error Notification
         </NotificationButton>
         <NotificationSnackbar></NotificationSnackbar>
