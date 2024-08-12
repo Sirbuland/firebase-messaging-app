@@ -23,3 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 .env
+
+# Firebase dev service worker
+public/firebase-messaging-sw.js
