@@ -9,6 +9,11 @@ export default defineConfig(({ command }) => {
     return {
       envPrefix: "REACT_APP_",
       plugins: [react(), fcmSwEnvPlugin()],
+      test: {
+        environment: "jsdom",
+        setupFiles: "./src/__tests__/setup.ts",
+        globals: true,
+      },
     };
   } else {
     return {
@@ -29,6 +34,11 @@ export default defineConfig(({ command }) => {
             },
           },
         },
+      },
+      test: {
+        environment: "jsdom",
+        setupFiles: "./src/__tests__/setup.ts",
+        globals: true,
       },
     };
   }
